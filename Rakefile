@@ -3,6 +3,37 @@ require 'bundler'
 
 Bundler::GemHelper.install_tasks
 
+module Bundler
+  class GemHelper
+
+    # do not release to rubygems.org
+    def rubygem_push(path)
+      sh("gem push ./pkg/#{full_name} --host https://northwoodspd.jfrog.io/artifactory/api/gems/gems")
+    end
+
+    # skip the tag
+    def tag_version
+      return
+    end
+  end
+end
+
+def gem_helper
+  @gem_helper ||= Bundler::GemHelper.new
+end
+
+def full_name
+  "#{name}-#{version}.gem"
+end
+
+def name
+  gem_helper.send(:name)
+end
+
+def version
+  gem_helper.send(:version)
+end
+
 def ext_dependencies(name)
   FileList["ext/#{name}/**/*"].reject { |file| file =~ /\b(Release|Debug)\b/ }
 end
