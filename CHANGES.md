@@ -1,3 +1,7 @@
+## 1.0.0 / 2021-01-29
+
+* Update ffi dependency to ~> 1.14.
+
 ## 1.0.0 / 2019-12-11
 
 * Update ffi dependency to ~> 1.11.0.
